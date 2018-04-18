@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "344877",
+    "database": "ticketingdb",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": "Sequelize.Op"
+  },
+  "test": {
+    "username": "root",
+    "password": "344877",
+    "database": "ticketingdb",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": "Sequelize.Op"
+  },
+  "production": {
+    "username": "root",
+    "password": "344877",
+    "database": "ticketingdb",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "operatorsAliases": "Sequelize.Op"
+  }
+}
