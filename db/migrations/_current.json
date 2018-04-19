@@ -1,0 +1,196 @@
+{
+    "tables": {
+        "Comments": {
+            "tableName": "Comments",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "ticket": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "content": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.TEXT"
+                },
+                "user": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "teams": {
+            "tableName": "teams",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "unique": true,
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "teamUsers": {
+            "tableName": "teamUsers",
+            "schema": {
+                "teamId": {
+                    "primaryKey": true,
+                    "unique": "teamUsers_userId_teamId_unique",
+                    "references": {
+                        "model": "teams",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "allowNull": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "userId": {
+                    "primaryKey": true,
+                    "unique": "teamUsers_userId_teamId_unique",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "allowNull": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "tickets": {
+            "tableName": "tickets",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "title": {
+                    "unique": true,
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "description": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.TEXT"
+                },
+                "labels": {
+                    "unique": true,
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "status": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "estimated": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "requerter": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "assignee": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "team": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "attach": {
+                    "seqType": "Sequelize.TEXT"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "users": {
+            "tableName": "users",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "userName": {
+                    "unique": true,
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "password": {
+                    "unique": true,
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "unique": true,
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 2
+}

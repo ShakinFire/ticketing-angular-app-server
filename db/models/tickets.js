@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Tickets = sequelize.define('Tickets', {
+  var tickets = sequelize.define('tickets', {
     title: {
       type:DataTypes.STRING,
       unique : true,
@@ -35,9 +35,12 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull : false,
       },
+    attach:{
+      type:DataTypes.TEXT,
+    }
   }, {});
-  Tickets.associate = function(models) {
+  tickets.associate = function(models) {
     // associations can be defined here
   };
-  return Tickets;
+  return tickets;
 };
