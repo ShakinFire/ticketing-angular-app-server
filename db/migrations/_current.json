@@ -32,8 +32,33 @@
             },
             "indexes": []
         },
-        "Tickets": {
-            "tableName": "Tickets",
+        "teams": {
+            "tableName": "teams",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "unique": true,
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "tickets": {
+            "tableName": "tickets",
             "schema": {
                 "id": {
                     "allowNull": false,
@@ -61,7 +86,7 @@
                 },
                 "estimated": {
                     "allowNull": false,
-                    "seqType": "Sequelize.INTEGER"
+                    "seqType": "Sequelize.DATE"
                 },
                 "requerter": {
                     "allowNull": false,
@@ -75,6 +100,9 @@
                     "allowNull": false,
                     "seqType": "Sequelize.STRING"
                 },
+                "attach": {
+                    "seqType": "Sequelize.TEXT"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
@@ -86,8 +114,8 @@
             },
             "indexes": []
         },
-        "Users": {
-            "tableName": "Users",
+        "users": {
+            "tableName": "users",
             "schema": {
                 "id": {
                     "allowNull": false,
@@ -121,6 +149,40 @@
                 "updatedAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "teamUsers": {
+            "tableName": "teamUsers",
+            "schema": {
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "teamId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "teams",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "userId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []

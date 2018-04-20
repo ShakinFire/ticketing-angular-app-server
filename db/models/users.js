@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Users = sequelize.define('Users', {
+  var users = sequelize.define('users', {
     name: {
       type:DataTypes.STRING,
       allowNull : false,
@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : false,
       },
   }, {});
-  Users.associate = function(models) {
+  users.associate = function(models) {
     // associations can be defined here
   };
-  return Users;
+  return users;
 };
