@@ -3,7 +3,7 @@ const init = (app, data) => {
         // auth validations
 
         // call controllers
-
+        
         // send data
         const obj = {
             name: 'Gosho',

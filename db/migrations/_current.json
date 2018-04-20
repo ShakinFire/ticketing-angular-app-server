@@ -57,44 +57,6 @@
             },
             "indexes": []
         },
-        "teamUsers": {
-            "tableName": "teamUsers",
-            "schema": {
-                "teamId": {
-                    "primaryKey": true,
-                    "unique": "teamUsers_userId_teamId_unique",
-                    "references": {
-                        "model": "teams",
-                        "key": "id"
-                    },
-                    "onDelete": "CASCADE",
-                    "onUpdate": "CASCADE",
-                    "allowNull": true,
-                    "seqType": "Sequelize.INTEGER"
-                },
-                "userId": {
-                    "primaryKey": true,
-                    "unique": "teamUsers_userId_teamId_unique",
-                    "references": {
-                        "model": "users",
-                        "key": "id"
-                    },
-                    "onDelete": "CASCADE",
-                    "onUpdate": "CASCADE",
-                    "allowNull": true,
-                    "seqType": "Sequelize.INTEGER"
-                },
-                "createdAt": {
-                    "allowNull": false,
-                    "seqType": "Sequelize.DATE"
-                },
-                "updatedAt": {
-                    "allowNull": false,
-                    "seqType": "Sequelize.DATE"
-                }
-            },
-            "indexes": []
-        },
         "tickets": {
             "tableName": "tickets",
             "schema": {
@@ -124,7 +86,7 @@
                 },
                 "estimated": {
                     "allowNull": false,
-                    "seqType": "Sequelize.INTEGER"
+                    "seqType": "Sequelize.DATE"
                 },
                 "requerter": {
                     "allowNull": false,
@@ -190,7 +152,41 @@
                 }
             },
             "indexes": []
+        },
+        "teamUsers": {
+            "tableName": "teamUsers",
+            "schema": {
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "teamId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "teams",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "userId": {
+                    "primaryKey": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : false,
       },
     estimated:{
-      type:DataTypes.INTEGER,
+      type:DataTypes.DATE,
       allowNull : false,
       },
     requerter:{
