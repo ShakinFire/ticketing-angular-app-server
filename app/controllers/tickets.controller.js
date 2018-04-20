@@ -1,7 +1,7 @@
 const ta = require('../../../node_modules/time-ago/timeago');
 class TicketsControler {
     constructor(data) {
-        this.data=data;
+        this.data = data;
     }
     async getTicketUserRequester(id) {
         const user = this.data.users.findById(id);
@@ -19,4 +19,6 @@ class TicketsControler {
     async getAllTeamByUser(id) {
         
     }
+
+    
 }

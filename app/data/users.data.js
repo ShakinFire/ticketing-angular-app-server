@@ -1,8 +1,8 @@
 const Data = require('./generic.data');
 
 class UsersData extends Data {
-    constructor(Model) {
-        super(Model);
+    constructor(userModel) {
+        super(userModel);
     }
 
     findByUserName(username) {
@@ -11,10 +11,17 @@ class UsersData extends Data {
                 userName: username,
             },
         });
+
         return currentUser;
     }
 
-    
+    getByEmail(email) {
+        return this.Model.findOne({
+            where: {
+                email: email,
+            },
+        });
+    }
 }
 
 module.exports = UsersData;

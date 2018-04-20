@@ -6,9 +6,8 @@ const init = (app) => {
         throw new Error('Invalid app');
     }
 
-    app.use(bodyParser.urlencoded({
-        extended: true,
-    }));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
 
     app.use((req, res, next) => {
         res.locals.messages = require('express-messages')(req, res);
