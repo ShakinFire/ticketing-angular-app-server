@@ -1,2 +1,2 @@
 migrations
-models/index.js
+db/models/index.js

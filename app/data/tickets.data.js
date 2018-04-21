@@ -1,8 +1,8 @@
 const Data = require('./generic.data');
 
 class TicketsData extends Data {
-    constructor(Model) {
-        super(Model);
+    constructor(ticketModel) {
+        super(ticketModel);
     }
 
     getAllTicketsByTeam(name) {

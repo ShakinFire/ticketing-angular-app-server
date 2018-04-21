@@ -1,8 +1,8 @@
 const Data = require('./generic.data');
 
 class TeamsData extends Data {
-    constructor(Model) {
-        super(Model);
+    constructor(teamModel) {
+        super(teamModel);
     }
 
     findByTeamName(teamname) {

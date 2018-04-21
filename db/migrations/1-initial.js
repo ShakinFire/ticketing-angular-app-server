@@ -5,25 +5,27 @@ var Sequelize = require('sequelize');
 /**
  * Actions summary:
  *
- * createTable "Comments", deps: []
  * createTable "teams", deps: []
- * createTable "tickets", deps: []
  * createTable "users", deps: []
- * createTable "teamUsers", deps: [teams, users]
+ * createTable "tickets", deps: [users]
+ * createTable "notifications", deps: [users]
+ * createTable "comments", deps: [users, tickets]
+ * createTable "teamsUsers", deps: [teams, users]
+ * createTable "ticketsTeams", deps: [tickets, teams]
  *
  **/
 
 var info = {
     "revision": 1,
-    "name": "inital",
-    "created": "2018-04-20T08:29:07.684Z",
+    "name": "initial",
+    "created": "2018-04-21T22:01:47.223Z",
     "comment": ""
 };
 
 var migrationCommands = [{
         fn: "createTable",
         params: [
-            "Comments",
+            "teams",
             {
                 "id": {
                     "type": Sequelize.INTEGER,
@@ -31,17 +33,10 @@ var migrationCommands = [{
                     "primaryKey": true,
                     "allowNull": false
                 },
-                "ticket": {
-                    "type": Sequelize.INTEGER,
-                    "allowNull": false
-                },
-                "content": {
-                    "type": Sequelize.TEXT,
-                    "allowNull": false
-                },
-                "user": {
+                "name": {
                     "type": Sequelize.STRING,
-                    "allowNull": false
+                    "allowNull": false,
+                    "unique": true
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -58,7 +53,7 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
-            "teams",
+            "users",
             {
                 "id": {
                     "type": Sequelize.INTEGER,
@@ -66,7 +61,24 @@ var migrationCommands = [{
                     "primaryKey": true,
                     "allowNull": false
                 },
-                "name": {
+                "firstName": {
+                    "type": Sequelize.STRING,
+                    "allowNull": false
+                },
+                "lastName": {
+                    "type": Sequelize.STRING,
+                    "allowNull": false
+                },
+                "username": {
+                    "type": Sequelize.STRING,
+                    "allowNull": false,
+                    "unique": true
+                },
+                "password": {
+                    "type": Sequelize.STRING,
+                    "allowNull": false
+                },
+                "email": {
                     "type": Sequelize.STRING,
                     "allowNull": false,
                     "unique": true
@@ -105,8 +117,7 @@ var migrationCommands = [{
                 },
                 "labels": {
                     "type": Sequelize.STRING,
-                    "allowNull": false,
-                    "unique": true
+                    "allowNull": false
                 },
                 "status": {
                     "type": Sequelize.STRING,
@@ -116,15 +127,7 @@ var migrationCommands = [{
                     "type": Sequelize.DATE,
                     "allowNull": false
                 },
-                "requerter": {
-                    "type": Sequelize.STRING,
-                    "allowNull": false
-                },
                 "assignee": {
-                    "type": Sequelize.STRING,
-                    "allowNull": false
-                },
-                "team": {
                     "type": Sequelize.STRING,
                     "allowNull": false
                 },
@@ -138,6 +141,16 @@ var migrationCommands = [{
                 "updatedAt": {
                     "type": Sequelize.DATE,
                     "allowNull": false
+                },
+                "userId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "SET NULL",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "allowNull": true
                 }
             },
             {}
@@ -146,7 +159,7 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
-            "users",
+            "notifications",
             {
                 "id": {
                     "type": Sequelize.INTEGER,
@@ -154,24 +167,9 @@ var migrationCommands = [{
                     "primaryKey": true,
                     "allowNull": false
                 },
-                "name": {
+                "content": {
                     "type": Sequelize.STRING,
                     "allowNull": false
-                },
-                "userName": {
-                    "type": Sequelize.STRING,
-                    "allowNull": false,
-                    "unique": true
-                },
-                "password": {
-                    "type": Sequelize.STRING,
-                    "allowNull": false,
-                    "unique": true
-                },
-                "email": {
-                    "type": Sequelize.STRING,
-                    "allowNull": false,
-                    "unique": true
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -180,6 +178,16 @@ var migrationCommands = [{
                 "updatedAt": {
                     "type": Sequelize.DATE,
                     "allowNull": false
+                },
+                "userId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "SET NULL",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "allowNull": true
                 }
             },
             {}
@@ -188,7 +196,58 @@ var migrationCommands = [{
     {
         fn: "createTable",
         params: [
-            "teamUsers",
+            "comments",
+            {
+                "id": {
+                    "type": Sequelize.INTEGER,
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false
+                },
+                "ticket": {
+                    "type": Sequelize.INTEGER,
+                    "allowNull": false
+                },
+                "content": {
+                    "type": Sequelize.TEXT,
+                    "allowNull": false
+                },
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "allowNull": false
+                },
+                "userId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "SET NULL",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "allowNull": true
+                },
+                "ticketId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "SET NULL",
+                    "references": {
+                        "model": "tickets",
+                        "key": "id"
+                    },
+                    "allowNull": true
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "teamsUsers",
             {
                 "createdAt": {
                     "type": Sequelize.DATE,
@@ -214,6 +273,43 @@ var migrationCommands = [{
                     "onDelete": "CASCADE",
                     "references": {
                         "model": "users",
+                        "key": "id"
+                    },
+                    "primaryKey": true
+                }
+            },
+            {}
+        ]
+    },
+    {
+        fn: "createTable",
+        params: [
+            "ticketsTeams",
+            {
+                "createdAt": {
+                    "type": Sequelize.DATE,
+                    "allowNull": false
+                },
+                "updatedAt": {
+                    "type": Sequelize.DATE,
+                    "allowNull": false
+                },
+                "ticketId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "tickets",
+                        "key": "id"
+                    },
+                    "primaryKey": true
+                },
+                "teamId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "references": {
+                        "model": "teams",
                         "key": "id"
                     },
                     "primaryKey": true
