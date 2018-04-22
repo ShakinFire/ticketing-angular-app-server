@@ -23,13 +23,12 @@ const init = (app, data) => {
 
             if (!user) {
                 res.json({
-                    message: 'No such user found',
+                    message: 'Email is incorrect.',
                 });
             }
-
             if (user.password !== password) {
                 res.json({
-                    message: 'password incorect',
+                    message: 'Password is incorrect.',
                 });
             }
 
@@ -38,6 +37,7 @@ const init = (app, data) => {
             jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: process.env.EXPIRATION }, (err, token) => {
                 res.json({
                     token: token,
+                    expiresIn: process.env.EXPIRATION,
                 });
             });
             /* eslint-enable */

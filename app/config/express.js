@@ -1,6 +1,8 @@
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const auth = require('./passportAuth');
+const cors = require('cors');
+const morgan = require('morgan');
 
 const init = (app, data) => {
     if (typeof app.use !== 'function' || typeof app.set !== 'function') {
@@ -10,6 +12,10 @@ const init = (app, data) => {
     // process.env variables
     dotenv.config();
 
+
+    app.use(cors());
+
+    app.use(morgan('combined'));
     // passport initialize strategy
     auth.init(app, data);
 
