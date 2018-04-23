@@ -12,7 +12,17 @@ const init = (app, data) => {
     opts.secretOrKey = process.env.SECRET_KEY;
     /* eslint-enable */
 
-    passport.use(new JwtStrategy(opts, async (jwtPayload, next) => {
+    passport.use('jwt', new JwtStrategy(opts, async (jwtPayload, next) => {
+        const user = await data.users.getById(jwtPayload.id);
+        console.log(jwtPayload);
+        if (user) {
+            next(null, user);
+        } else {
+            next(null, false);
+        }
+    }));
+
+    passport.use('jwt-admin', new JwtStrategy(opts, async (jwtPayload, next) => {
         const user = await data.users.getById(jwtPayload.id);
 
         if (user) {

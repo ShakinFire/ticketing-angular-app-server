@@ -60,6 +60,7 @@ const init = (app, data) => {
         })
         .post('/test', passport.authenticate('jwt', { session: false }), (req, res) => {
             // testing authentication (guarded route)
+            console.log('I AM AUTHENTICATED');
             res.json({
                 user: req.user,
             });
