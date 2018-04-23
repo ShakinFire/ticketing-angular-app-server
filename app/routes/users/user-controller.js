@@ -4,17 +4,20 @@ class UserController {
     }
 
     _validate(user) {
-        if (user.firstName.length < 2 || user.lastName.length < 2 ||
-            user.password.length < 6) {
-            return false;
+        const message = null;
+        if (user.firstName.length < 2 || user.lastName.length < 2) {
+            message = 'Name must be at least 2 characters';
         }
 
+        if (user.password.length < 6) {
+            message = 'Password must be at least 6 characters';
+        }
         // should be regex check, this is just for testing purpose
         if (user.email.length < 5) {
-            return false;
+            message = 'Invalid email';
         }
 
-        return true;
+        return message;
     }
 
     async checkUser(email) {
@@ -26,9 +29,13 @@ class UserController {
         let result = null;
 
         if (isValid) {
+            return isValid;
+        }
+
+        try {
             result = await this.data.users.create(userToCreate);
-        } else {
-            result = 'Invalid data';
+        } catch (err) {
+            result = err.message;
         }
 
         return result;
