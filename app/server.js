@@ -3,8 +3,11 @@ const data = require('./data');
 
 const app = express();
 
-require('./config/express').init(app);
+require('./config/express').init(app, data);
 require('./routes').init(app, data);
 
-
-app.listen(process.env.PORT || 3001);
+/* eslint-disable */
+app.listen(process.env.PORT, () => {
+    console.log('Server is listening on port ' + process.env.PORT);
+});
+/* eslint-enable */

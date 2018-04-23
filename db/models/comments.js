@@ -1,21 +1,24 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Comments = sequelize.define('Comments', {
+  const comments = sequelize.define('comments', {
     ticket: {
-      type:DataTypes.INTEGER,
-      allowNull : false,
-      },
-    content:{
-      type:DataTypes.TEXT,
-      allowNull : false,
-      },
-    user: {
-      type:DataTypes.STRING,
-      allowNull : false,
-      },
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   }, {});
-  Comments.associate = function(models) {
-    // associations can be defined here
+  comments.associate = function(models) {
+    const {
+      tickets,
+      users,
+    } = models;
+
+    users.hasMany(comments, { as: 'comments' });
+
+    tickets.hasMany(comments, { as: 'comments' });
   };
-  return Comments;
+  return comments;
 };

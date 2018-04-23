@@ -1,16 +1,12 @@
 const Data = require('./generic.data');
 
 class CommentsData extends Data {
-    constructor(Model) {
-        super(Model);
+    constructor(commentModel) {
+        super(commentModel);
     }
 
-    getCommentsOnTicket(id) {
-        return this.Model.findAll({
-            where: {
-                ticket: id,
-            },
-        });
+    getAllComments(ticket) {
+        return ticket.getComments();
     }
 }
 
