@@ -46,17 +46,23 @@ const init = (app, data) => {
             const userReg = req.body;
             let newUser = null;
 
-            try {
-                newUser = await UserController.regValidation(userReg);
-            } catch (error) {
+            newUser = await UserController.regValidation(userReg);
+
+            // if user is equal to error message
+            if (typeof newUser === 'string') {
                 res.json({
-                    errorMessage: error.message,
+                    message: newUser,
                 });
             }
 
-            res.json({
-                user: newUser,
+            /* eslint-disable */
+            jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, { expiresIn: process.env.EXPIRATION }, (err, token) => {
+                res.json({
+                    token: token,
+                    expiresIn: process.env.EXPIRATION,
+                });
             });
+            /* eslint-enable */
         })
         .post('/test', passport.authenticate('jwt', { session: false }), (req, res) => {
             // testing authentication (guarded route)
