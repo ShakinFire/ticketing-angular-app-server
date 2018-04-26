@@ -182,11 +182,6 @@
                     "allowNull": false,
                     "seqType": "Sequelize.STRING"
                 },
-                "username": {
-                    "unique": true,
-                    "allowNull": false,
-                    "seqType": "Sequelize.STRING"
-                },
                 "password": {
                     "allowNull": false,
                     "seqType": "Sequelize.STRING"
