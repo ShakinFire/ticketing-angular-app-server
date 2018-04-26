@@ -1,14 +1,22 @@
 const Data = require('./generic.data');
 
+const {
+    teams,
+} = require('../../db/models');
+
 class UsersData extends Data {
     constructor(userModel) {
         super(userModel);
     }
 
     findByUserName(username) {
+        let user = username.split(' ');
+        let firstName = user[0];
+        let lastName = user[1];
         const currentUser = this.Model.findOne({
             where: {
-                userName: username,
+                firstName: firstName,
+                lastName: lastName
             },
         });
 

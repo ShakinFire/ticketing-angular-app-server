@@ -1,5 +1,8 @@
 const Data = require('./generic.data');
 
+const {
+    users,
+} = require('../../db/models');
 class TeamsData extends Data {
     constructor(teamModel) {
         super(teamModel);
@@ -16,6 +19,28 @@ class TeamsData extends Data {
 
     isObjValid(obj) {
         return obj;
+    }
+
+    getByTeamAllUsers(name) {
+        return this.Model.findAll({
+            where: {
+                name: name,
+            },
+            include: [users]
+
+        });
+    }
+
+    getByUserAllTeams(id) {
+        return this.Model.findAll({
+
+            include: [{
+                model: users,
+                where: {
+                    id: id,
+                }
+            }]
+        });
     }
 }
 
