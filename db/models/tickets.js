@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    assignee: {
-      type: DataTypes.STRING,
+    assigneeId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     attach: {
@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
       through: 'ticketsTeams',
     });
 
-    users.hasMany(tickets, { as: 'tickets' });
+    users.hasMany(tickets, { as: 'tickets', foreignKey: 'userId' });
+    tickets.belongsTo(users, { as: 'users', foreignKey: 'userId' });
   };
   return tickets;
 };

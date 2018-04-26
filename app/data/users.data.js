@@ -31,7 +31,13 @@ class UsersData extends Data {
         });
     }
 
-
+    getAllById(id) {
+        return this.Model.findAll({
+            where: {
+                id: id,
+            },
+        });
+    }
 }
 
 module.exports = UsersData;

@@ -1,4 +1,4 @@
-class UsersTeamsControler {
+class TeamController {
     constructor(data) {
         this.data = data;
     }
@@ -11,4 +11,4 @@ class UsersTeamsControler {
         return await this.data.teams.getByTeamAllUsers(name);
     }
 }
-module.exports = UsersTeamsControler;
+module.exports = TeamController;

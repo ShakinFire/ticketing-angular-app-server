@@ -161,6 +161,16 @@
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
+                },
+                "usersId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
@@ -271,5 +281,5 @@
             "indexes": []
         }
     },
-    "revision": 4
+    "revision": 3
 }
