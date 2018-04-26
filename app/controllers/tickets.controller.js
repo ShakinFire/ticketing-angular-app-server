@@ -22,6 +22,24 @@ class TicketsControler {
         if (ticketInfo.title.length < 2) {
             message = 'Title must be at least 2 characters.'
         }
+        if (ticketInfo.labels.length < 2) {
+            message = 'Error: Labels should be at least 2 characters'
+        }
+        if (ticketInfo.description.length < 1) {
+            message = 'Error: Write a description'
+        }
+        if (ticketInfo.team.length < 1) {
+            message = 'Error: You have not chosen a team'
+        }
+        if (ticketInfo.assignee.length < 1) {
+            message = 'Error: You have not chosen a assignee'
+        }
+        if (ticketInfo.assignee.length < 1) {
+            message = 'Error: You have not chosen a assignee'
+        }
+        if (ticketInfo.estimated.length < 10) {
+            message = 'Error: you did not select the correct date'
+        }
 
         return message;
     }
