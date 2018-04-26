@@ -16,13 +16,26 @@ class TicketsData extends Data {
                 },
         });
     }
-    getAllTickestByUserRequerter(name) {
+
+    getByRequester(userId) {
         return this.Model.findAll({
+            attributes: { exclude: ['updatedAt', 'description', 'attach', 'estimated'] },
             where: {
-                requerter: name,
+                userId: userId,
             },
+            include: [
+                {
+                    model: users,
+                    as: 'users',
+                    attributes: { exclude: ['password', 'updatedAt', 'createdAt', 'email'] },
+                    where: {
+                        id: userId,
+                    },
+                },
+            ],
         });
     }
+
     getAllTickestByUserAssignee(id) {
         return this.Model.findAll({
             attributes: { exclude: ['updatedAt', 'description', 'attach', 'estimated'] },

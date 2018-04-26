@@ -98,6 +98,16 @@ class TicketController {
         return tickets;
     }
 
+    async getAllMyTickets(userId) {
+        const myTickets = await this.data.tickets.getByRequester(+userId);
+
+        await Promise.all([myTickets.forEach(async (ticket) => {
+            ticket.dataValues.date = this._getDate(ticket.createdAt);
+        })]);
+
+        return myTickets;
+    }
+
     async getTicketUserRequester(id) {
         const user = this.data.users.findById(id);
         const name = user.name;
