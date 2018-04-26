@@ -1,5 +1,9 @@
 const Data = require('./generic.data');
 
+const {
+    users,
+} = require('../../db/models');
+
 class TicketsData extends Data {
     constructor(ticketModel) {
         super(ticketModel);
@@ -19,11 +23,19 @@ class TicketsData extends Data {
             },
         });
     }
-    getAllTickestByUserAssignee(name) {
+    getAllTickestByUserAssignee(id) {
         return this.Model.findAll({
+            attributes: { exclude: ['updatedAt', 'description', 'attach', 'estimated'] },
             where: {
-                assignee: name,
+                assigneeId: id,
             },
+            include: [
+                {
+                    attributes: { exclude: ['password', 'updatedAt', 'createdAt', 'email'] },
+                    as: 'users',
+                    model: users,
+                },
+            ],
         });
     }
     getByTitle(value) {
