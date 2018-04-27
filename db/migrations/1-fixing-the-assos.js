@@ -17,8 +17,8 @@ var Sequelize = require('sequelize');
 
 var info = {
     "revision": 1,
-    "name": "initial",
-    "created": "2018-04-23T12:03:24.383Z",
+    "name": "fixing-the-assos",
+    "created": "2018-04-27T21:44:44.221Z",
     "comment": ""
 };
 
@@ -122,8 +122,8 @@ var migrationCommands = [{
                     "type": Sequelize.DATE,
                     "allowNull": false
                 },
-                "assignee": {
-                    "type": Sequelize.STRING,
+                "assigneeId": {
+                    "type": Sequelize.INTEGER,
                     "allowNull": false
                 },
                 "attach": {

@@ -12,12 +12,11 @@ const init = (app, data) => {
 
     router
         .get('/user-teams/:id', async (req, res) => {
-
-            // const obj = req.body;
             const id = req.params.id;
-            // console.log(obj);
             const result = await TeamController.getUserAllTeams(id);
-            const teams = result.map(x => x.name);
+            const teams = result.map((x) => {
+                return x.name;
+            });
 
             res.json({
                 teams,
@@ -31,11 +30,17 @@ const init = (app, data) => {
             const result = await TeamController.getTeamAllUsers(name);
             const users = result[0].users.map(x => ({
                 id: x.id,
-                name: x.firstName + ' ' + x.lastName
+                name: x.firstName + ' ' + x.lastName,
             }));
 
             res.json({
                 users,
+            });
+        })
+        .get('/getMyTeams', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const teams = await TeamController.getUserAllTeams(req.user.id);
+            res.json({
+                teams,
             });
         });
 };

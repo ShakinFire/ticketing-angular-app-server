@@ -29,7 +29,7 @@ class UserController {
         let result = null;
 
         if (isValid) {
-            return isValid;
+            return result;
         }
 
         try {
