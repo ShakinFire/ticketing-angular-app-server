@@ -40,6 +40,9 @@ class UserController {
 
         return result;
     }
+    async getAllUsersIdName() {
+        return await this.data.users.getAll();
+    }
 }
 
 module.exports = UserController;

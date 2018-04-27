@@ -29,7 +29,10 @@ const init = (app, data) => {
             const name = req.params.team;
 
             const result = await TeamController.getTeamAllUsers(name);
-            const users = result[0].users.map(x => (x.firstName + ' ' + x.lastName));
+            const users = result[0].users.map(x => ({
+                id: x.id,
+                name: x.firstName + ' ' + x.lastName
+            }));
 
             res.json({
                 users

@@ -1,7 +1,9 @@
 const Ucontroller = require('./user-controller');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const { Router } = require('express');
+const {
+    Router
+} = require('express');
 
 const init = (app, data) => {
     const UserController = new Ucontroller(data);
@@ -34,7 +36,11 @@ const init = (app, data) => {
 
             // create token
             /* eslint-disable */
-            jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: process.env.EXPIRATION }, (err, token) => {
+            jwt.sign({
+                id: user.id
+            }, process.env.SECRET_KEY, {
+                expiresIn: process.env.EXPIRATION
+            }, (err, token) => {
                 res.json({
                     token: token,
                     expiresIn: process.env.EXPIRATION,
@@ -56,7 +62,11 @@ const init = (app, data) => {
             }
 
             /* eslint-disable */
-            jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, { expiresIn: process.env.EXPIRATION }, (err, token) => {
+            jwt.sign({
+                id: newUser.id
+            }, process.env.SECRET_KEY, {
+                expiresIn: process.env.EXPIRATION
+            }, (err, token) => {
                 res.json({
                     token: token,
                     expiresIn: process.env.EXPIRATION,
@@ -64,13 +74,28 @@ const init = (app, data) => {
             });
             /* eslint-enable */
         })
-        .post('/test', passport.authenticate('jwt', { session: false }), (req, res) => {
+        .post('/test', passport.authenticate('jwt', {
+            session: false
+        }), (req, res) => {
             // testing authentication (guarded route)
             console.log('I AM AUTHENTICATED');
             res.json({
                 user: req.user,
             });
+        })
+        .get('/allUsers', async (req, res) => {
+            const result = await UserController.getAllUsersIdName();
+            const users = result.map(x => ({
+                id: x.id,
+                name: x.firstName + ' ' + x.lastName
+            }));
+
+            res.json({
+                users
+            });
         });
+
+
 };
 
 module.exports = {
