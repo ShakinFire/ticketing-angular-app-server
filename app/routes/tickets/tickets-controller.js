@@ -75,10 +75,7 @@ class TicketController {
         if (ticketInfo.team.length < 1) {
             message = 'Error: You have not chosen a team'
         }
-        if (ticketInfo.assignee.length < 1) {
-            message = 'Error: You have not chosen a assignee'
-        }
-        if (ticketInfo.assignee.length < 1) {
+        if (ticketInfo.assigneeId.length < 1) {
             message = 'Error: You have not chosen a assignee'
         }
         if (ticketInfo.estimated.length < 10) {
