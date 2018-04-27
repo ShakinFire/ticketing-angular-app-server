@@ -32,7 +32,7 @@ const init = (app, data) => {
             const users = result[0].users.map(x => (x.firstName + ' ' + x.lastName));
 
             res.json({
-                users
+                users,
             });
         });
 };
