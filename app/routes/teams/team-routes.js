@@ -35,7 +35,7 @@ const init = (app, data) => {
             }));
 
             res.json({
-                users
+                users,
             });
         });
 };
