@@ -38,6 +38,15 @@ class UsersData extends Data {
             },
         });
     }
+
+    findOneByIdUser(id) {
+        return this.Model.findOne({
+            attributes: { exclude: ['password', 'updatedAt', 'createdAt'] },
+            where: {
+                id: id,
+            },
+        });
+    }
 }
 
 module.exports = UsersData;

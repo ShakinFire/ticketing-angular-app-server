@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
     tickets.belongsToMany(teams, {
       through: 'ticketsTeams',
     });
+    teams.belongsToMany(tickets, {
+      through: 'ticketsTeams',
+    });
 
     users.hasMany(tickets, { as: 'tickets', foreignKey: 'userId' });
     tickets.belongsTo(users, { as: 'users', foreignKey: 'userId' });

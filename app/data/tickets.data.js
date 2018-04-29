@@ -2,6 +2,7 @@ const Data = require('./generic.data');
 
 const {
     users,
+    comments,
 } = require('../../db/models');
 
 class TicketsData extends Data {
@@ -70,6 +71,28 @@ class TicketsData extends Data {
             where: {
                 assignee: value,
             },
+        });
+    }
+
+    getTicketAndComments(id) {
+        return this.Model.findOne({
+            where: {
+                id: id,
+            },
+            include: [
+                {
+                    model: comments,
+                    as: 'comments',
+                    attributes: { exclude: ['userId', 'ticketId', 'updatedAt'] },
+                    include: [
+                        {
+                            model: users,
+                            as: 'users',
+                            attributes: { exclude: ['password', 'updatedAt', 'createdAt', 'email'] },
+                        },
+                    ],
+                },
+            ],
         });
     }
 }

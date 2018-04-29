@@ -31,7 +31,27 @@
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
                 },
+                "usersId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "ticketId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "tickets",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "ticketsId": {
                     "allowNull": true,
                     "references": {
                         "model": "tickets",
@@ -66,6 +86,16 @@
                     "seqType": "Sequelize.DATE"
                 },
                 "userId": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "usersId": {
                     "allowNull": true,
                     "references": {
                         "model": "users",
@@ -267,5 +297,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }
