@@ -1,5 +1,5 @@
 const Data = require('./generic.data');
-
+const sequelize = require('sequelize');
 const {
     users,
     comments,
@@ -93,6 +93,16 @@ class TicketsData extends Data {
                     ],
                 },
             ],
+        });
+    }
+
+    updateTotalComments(ticketId) {
+        return this.Model.update({
+            totalComments: sequelize.literal('totalComments + 1'),
+        }, {
+            where: {
+                id: ticketId,
+            },
         });
     }
 }

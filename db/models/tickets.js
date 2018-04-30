@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
     attach: {
       type: DataTypes.TEXT,
     },
+    totalComments: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   }, {});
   tickets.associate = function(models) {
     const {

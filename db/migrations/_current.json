@@ -140,6 +140,13 @@
                 "attach": {
                     "seqType": "Sequelize.TEXT"
                 },
+                "totalComments": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": 0
+                    },
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
@@ -267,5 +274,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 3
 }
