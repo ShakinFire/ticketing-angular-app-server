@@ -1,15 +1,11 @@
 const Data = require('./generic.data');
-<<<<<<< HEAD
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
 
 // const timezone = 'Europe/Vilnius'
 
 // require('moment').tz.setDefault(timezone)
 
-=======
-const sequelize = require('sequelize');
->>>>>>> ae6c1268c82472a19a3ac0a6dd3cbdb74f4d9fec
 const {
     users,
     comments,
@@ -87,7 +83,6 @@ class TicketsData extends Data {
             },
         });
     }
-<<<<<<< HEAD
     getTicketsByDate() {
         return this.Model.findAll({
             where: {
@@ -96,27 +91,26 @@ class TicketsData extends Data {
                 }
             }
         })
-=======
-
+    }
     getTicketAndComments(id) {
         return this.Model.findOne({
             where: {
                 id: id,
             },
-            include: [
-                {
-                    model: comments,
-                    as: 'comments',
-                    attributes: { exclude: ['userId', 'ticketId', 'updatedAt'] },
-                    include: [
-                        {
-                            model: users,
-                            as: 'users',
-                            attributes: { exclude: ['password', 'updatedAt', 'createdAt', 'email'] },
-                        },
-                    ],
+            include: [{
+                model: comments,
+                as: 'comments',
+                attributes: {
+                    exclude: ['userId', 'ticketId', 'updatedAt']
                 },
-            ],
+                include: [{
+                    model: users,
+                    as: 'users',
+                    attributes: {
+                        exclude: ['password', 'updatedAt', 'createdAt', 'email']
+                    },
+                }, ],
+            }, ],
         });
     }
 
@@ -128,7 +122,6 @@ class TicketsData extends Data {
                 id: ticketId,
             },
         });
->>>>>>> ae6c1268c82472a19a3ac0a6dd3cbdb74f4d9fec
     }
 }
 

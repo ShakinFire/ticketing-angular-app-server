@@ -37,7 +37,6 @@ const init = (app, data) => {
                 users,
             });
         })
-<<<<<<< HEAD
         .post('/create-team', async (req, res) => {
             const team = req.body;
 
@@ -55,14 +54,14 @@ const init = (app, data) => {
                 result
             });
         })
-=======
-        .get('/getMyTeams', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .get('/getMyTeams', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const teams = await TeamController.getUserAllTeams(req.user.id);
             res.json({
                 teams,
             });
         });
->>>>>>> ae6c1268c82472a19a3ac0a6dd3cbdb74f4d9fec
 };
 
 module.exports = {
