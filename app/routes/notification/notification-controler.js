@@ -9,8 +9,7 @@ class NotificationController {
     }
 
     async getNotification(id) {
-        const usId = id
-        return await this.data.notifications.getNotificationByUser(usId);
+        return await this.data.notifications.getNotificationByUser(+id);
     }
 }
 module.exports = NotificationController;

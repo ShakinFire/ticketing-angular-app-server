@@ -6,9 +6,10 @@ class NotificationsData extends Data {
     }
     getNotificationByUser(id) {
         return this.Model.findAll({
+            attributes: { exclude: ['updatedAt'] },
             where: {
-                userId: id
-            }
+                userId: id,
+            },
         });
     }
 }
