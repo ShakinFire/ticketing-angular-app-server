@@ -1,7 +1,7 @@
-const userRoute = require('./team-routes');
+const teamRoute = require('./team-routes');
 
 const init = (app, data) => {
-    userRoute.init(app, data);
+    teamRoute.init(app, data);
 };
 
 module.exports = {

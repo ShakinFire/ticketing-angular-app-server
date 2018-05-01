@@ -43,6 +43,11 @@ class UserController {
     async getAllUsersIdName() {
         return await this.data.users.getAll();
     }
+    async getUserId(name) {
+        const user = await this.data.users.findByUserName(name);
+        return user.id;
+
+    }
 }
 
 module.exports = UserController;

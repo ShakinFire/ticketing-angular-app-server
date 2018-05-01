@@ -121,10 +121,20 @@ class TicketController {
 
     async createNewTicket(obj) {
         this._validateTicket(obj);
+        const team = await this.data.teams.findByTeamName(obj.team);
+        const teamId = team.id;
         const newTicket = await this.data.tickets.create(obj);
+        newTicket.addTeams([teamId]);
         return newTicket;
     }
 
+<<<<<<< HEAD
+    async getAllTicketDateIsTwo() {
+        const ticket = await this.data.tickets.getTicketsByDate();
+        return ticket;
+    }
+
+=======
     async getSingleTicket(ticketId) {
         const ticket = await this.data.tickets.getTicketAndComments(+ticketId);
         const requester = await this.data.users.findOneByIdUser(ticket.userId);
@@ -137,6 +147,7 @@ class TicketController {
             assignee,
         };
     }
+>>>>>>> ae6c1268c82472a19a3ac0a6dd3cbdb74f4d9fec
 }
 
 module.exports = TicketController;
