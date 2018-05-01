@@ -11,21 +11,27 @@ const init = (app, data) => {
     app.use('/api', router);
 
     router
-        .get('/getAllAssignedTickets', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .get('/getAllAssignedTickets', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const allAssignedTickets = await TicketController.getAllAssignedTickets(req.user.id);
 
             res.json({
                 tickets: allAssignedTickets,
             });
         })
-        .get('/getAllMyTickets', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .get('/getAllMyTickets', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const allMyTickets = await TicketController.getAllMyTickets(req.user.id);
             console.log(allMyTickets);
             res.json({
                 tickets: allMyTickets,
             });
         })
-        .post('/create-ticket', async (req, res) => {
+        .post('/create-ticket', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const obj = req.body;
             console.log(obj);
             const result = await TicketController.createNewTicket(obj);
@@ -34,6 +40,12 @@ const init = (app, data) => {
                 result,
             });
         });
+    // .get('/getAllTicketsDataLessTwo', async (req, res) => {
+    //     const result = await TicketController.getAllTicketDateIsTwo();
+    //     res.json({
+    //         result,
+    //     });
+    // })
 };
 
 module.exports = {

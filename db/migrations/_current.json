@@ -61,6 +61,13 @@
                     "allowNull": false,
                     "seqType": "Sequelize.STRING"
                 },
+                "type": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.STRING"
+                },
+                "nameTipe": {
+                    "seqType": "Sequelize.STRING"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
@@ -271,5 +278,5 @@
             "indexes": []
         }
     },
-    "revision": 4
+    "revision": 5
 }

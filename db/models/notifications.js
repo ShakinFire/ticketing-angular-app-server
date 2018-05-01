@@ -5,8 +5,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    nameType: {
+      type: DataTypes.STRING,
+    },
+
   }, {});
-  notifications.associate = function(models) {
+  notifications.associate = function (models) {
     // associations can be defined here
   };
   return notifications;

@@ -37,7 +37,24 @@ const init = (app, data) => {
             res.json({
                 users,
             });
-        });
+        })
+        .post('/create-team', async (req, res) => {
+            const team = req.body;
+
+            const result = await TeamController.createTeam(team)
+
+            res.json({
+                restult
+            });
+        })
+        .post('/addUserInTeam', async (req, res) => {
+            const obj = req.body;
+            const result = await TeamController.addUserInTeam(obj);
+
+            res.json({
+                result
+            });
+        })
 };
 
 module.exports = {

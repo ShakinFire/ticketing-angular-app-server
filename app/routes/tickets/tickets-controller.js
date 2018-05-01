@@ -120,9 +120,18 @@ class TicketController {
 
     async createNewTicket(obj) {
         this._validateTicket(obj);
+        const team = await this.data.teams.findByTeamName(obj.team);
+        const teamId = team.id;
         const newTicket = await this.data.tickets.create(obj);
+        newTicket.addTeams([teamId]);
         return newTicket;
     }
+
+    async getAllTicketDateIsTwo() {
+        const ticket = await this.data.tickets.getTicketsByDate();
+        return ticket;
+    }
+
 }
 
 module.exports = TicketController;
