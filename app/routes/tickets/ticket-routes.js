@@ -1,5 +1,5 @@
 const {
-    Router
+    Router,
 } = require('express');
 const Tcontroller = require('./tickets-controller');
 const passport = require('passport');
@@ -29,9 +29,21 @@ const init = (app, data) => {
                 tickets: allMyTickets,
             });
         })
+<<<<<<< HEAD
         .post('/create-ticket', passport.authenticate('jwt', {
             session: false
         }), async (req, res) => {
+=======
+        .get('/ticket-view/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const ticket = await TicketController.getSingleTicket(req.params.id);
+            res.json({
+                ticket: ticket.ticket,
+                assignee: ticket.assignee,
+                requester: ticket.requester,
+            });
+        })
+        .post('/create-ticket', async (req, res) => {
+>>>>>>> ae6c1268c82472a19a3ac0a6dd3cbdb74f4d9fec
             const obj = req.body;
             console.log(obj);
             const result = await TicketController.createNewTicket(obj);

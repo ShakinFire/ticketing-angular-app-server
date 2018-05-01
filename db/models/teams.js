@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     teams.belongsToMany(users, {
       through: 'teamsUsers',
     });
+    users.belongsToMany(teams, {
+      through: 'teamsUsers',
+    });
   };
   return teams;
 };

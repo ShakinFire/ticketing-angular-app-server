@@ -55,7 +55,7 @@ class TicketController {
         const year = dmy[0].substring(3, 5);
         const hms = currentDate[1].split(':'); // hour-minute-secound
         const result =
-            `${this._getMonth(dmy[1])} ${dmy[2]}'${year} at ${hms[0]}:${hms[1]}`;
+        `${this._getMonth(dmy[1])} ${dmy[2]}'${year} at ${hms[0]}:${hms[1]}`;
 
         return result;
     }
@@ -64,29 +64,30 @@ class TicketController {
         let message = null;
 
         if (ticketInfo.title.length < 2) {
-            message = 'Title must be at least 2 characters.'
+            message = 'Title must be at least 2 characters.';
         }
         if (ticketInfo.labels.length < 2) {
-            message = 'Error: Labels should be at least 2 characters'
+            message = 'Error: Labels should be at least 2 characters';
         }
         if (ticketInfo.description.length < 1) {
-            message = 'Error: Write a description'
+            message = 'Error: Write a description';
         }
         if (ticketInfo.team.length < 1) {
-            message = 'Error: You have not chosen a team'
+            message = 'Error: You have not chosen a team';
         }
         if (ticketInfo.assigneeId.length < 1) {
-            message = 'Error: You have not chosen a assignee'
+            message = 'Error: You have not chosen a assignee';
         }
         if (ticketInfo.estimated.length < 10) {
-            message = 'Error: you did not select the correct date'
+            message = 'Error: you did not select the correct date';
         }
 
         return message;
     }
 
     async getAllAssignedTickets(userId) {
-        const tickets = await this.data.tickets.getAllTickestByUserAssignee(+userId);
+        const tickets = await this.data.tickets
+            .getAllTickestByUserAssignee(+userId);
 
         await Promise.all([tickets.forEach(async (ticket) => {
             ticket.dataValues.date = this._getDate(ticket.createdAt);
@@ -127,11 +128,26 @@ class TicketController {
         return newTicket;
     }
 
+<<<<<<< HEAD
     async getAllTicketDateIsTwo() {
         const ticket = await this.data.tickets.getTicketsByDate();
         return ticket;
     }
 
+=======
+    async getSingleTicket(ticketId) {
+        const ticket = await this.data.tickets.getTicketAndComments(+ticketId);
+        const requester = await this.data.users.findOneByIdUser(ticket.userId);
+        const assignee = await this.data.users.findOneByIdUser(ticket.assigneeId);
+
+        ticket.dataValues.date = this._getDate(ticket.createdAt);
+        return {
+            ticket,
+            requester,
+            assignee,
+        };
+    }
+>>>>>>> ae6c1268c82472a19a3ac0a6dd3cbdb74f4d9fec
 }
 
 module.exports = TicketController;

@@ -37,7 +37,8 @@ const init = (app, data) => {
             // create token
             /* eslint-disable */
             jwt.sign({
-                id: user.id
+                id: user.id,
+                firstName: user.firstName,
             }, process.env.SECRET_KEY, {
                 expiresIn: process.env.EXPIRATION
             }, (err, token) => {
@@ -63,7 +64,8 @@ const init = (app, data) => {
 
             /* eslint-disable */
             jwt.sign({
-                id: newUser.id
+                id: newUser.id,
+                firstName: newUser.firstName,
             }, process.env.SECRET_KEY, {
                 expiresIn: process.env.EXPIRATION
             }, (err, token) => {
