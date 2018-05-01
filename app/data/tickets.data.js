@@ -92,6 +92,10 @@ class TicketsData extends Data {
             }
         })
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> ceee309933fe0d0893bbfc48b352d7b0168a1b7a
     getTicketAndComments(id) {
         return this.Model.findOne({
             where: {

@@ -1,5 +1,5 @@
 const {
-    Router
+    Router,
 } = require('express');
 const Tcontroller = require('./team-controller');
 const passport = require('passport');
@@ -43,7 +43,7 @@ const init = (app, data) => {
             const result = await TeamController.createTeam(team)
 
             res.json({
-                restult
+                result,
             });
         })
         .post('/addUserInTeam', async (req, res) => {
@@ -51,12 +51,16 @@ const init = (app, data) => {
             const result = await TeamController.addUserInTeam(obj);
 
             res.json({
-                result
+                result,
             });
         })
+<<<<<<< HEAD
         .get('/getMyTeams', passport.authenticate('jwt', {
             session: false
         }), async (req, res) => {
+=======
+        .get('/getMyTeams', passport.authenticate('jwt', { session: false }), async (req, res) => {
+>>>>>>> ceee309933fe0d0893bbfc48b352d7b0168a1b7a
             const teams = await TeamController.getUserAllTeams(req.user.id);
             res.json({
                 teams,

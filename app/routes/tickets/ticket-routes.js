@@ -29,9 +29,13 @@ const init = (app, data) => {
                 tickets: allMyTickets,
             });
         })
+<<<<<<< HEAD
         .get('/ticket-view/:id', passport.authenticate('jwt', {
             session: false
         }), async (req, res) => {
+=======
+        .get('/ticket-view/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+>>>>>>> ceee309933fe0d0893bbfc48b352d7b0168a1b7a
             const ticket = await TicketController.getSingleTicket(req.params.id);
             res.json({
                 ticket: ticket.ticket,

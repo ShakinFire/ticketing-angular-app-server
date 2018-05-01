@@ -13,7 +13,6 @@ const init = (app, data) => {
     app.use('/api', router);
 
     router
-
         .post('/create-notification', async (req, res) => {
             const notification = req.body;
             const userId = await uController.getUserId(notification.user);
@@ -26,17 +25,17 @@ const init = (app, data) => {
             console.log(notification);
             const result = await controller.createNotification(obj);
             res.json({
-                result
+                result,
             });
         })
         .get('/notificationUser/:id', async (req, res) => {
             const id = req.params.id;
-            const notification = req.body;
             const result = await controller.getNotification(id);
+            console.log(result);
             res.json({
-                result
+                result,
             });
-        })
+        });
 };
 
 module.exports = {
