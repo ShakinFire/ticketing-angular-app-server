@@ -9,10 +9,6 @@
                     "autoIncrement": true,
                     "seqType": "Sequelize.INTEGER"
                 },
-                "ticket": {
-                    "allowNull": false,
-                    "seqType": "Sequelize.INTEGER"
-                },
                 "content": {
                     "allowNull": false,
                     "seqType": "Sequelize.TEXT"
@@ -144,6 +140,13 @@
                 "attach": {
                     "seqType": "Sequelize.TEXT"
                 },
+                "totalComments": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": 0
+                    },
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
@@ -271,5 +274,5 @@
             "indexes": []
         }
     },
-    "revision": 4
+    "revision": 3
 }

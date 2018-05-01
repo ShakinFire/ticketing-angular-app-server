@@ -4,7 +4,9 @@ class TeamController {
     }
 
     async getUserAllTeams(id) {
-        return await this.data.teams.getByUserAllTeams(id);
+        const user = await this.data.users.getById(id);
+        return user.getTeams();
+        // return await this.data.teams.getByUserAllTeams(id);
     }
 
     async getTeamAllUsers(name) {

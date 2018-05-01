@@ -8,8 +8,8 @@ var Sequelize = require('sequelize');
  * createTable "teams", deps: []
  * createTable "users", deps: []
  * createTable "tickets", deps: [users]
- * createTable "notifications", deps: [users]
- * createTable "comments", deps: [users, tickets]
+ * createTable "notifications", deps: [users, users]
+ * createTable "comments", deps: [users, users, tickets, tickets]
  * createTable "teamsUsers", deps: [teams, users]
  * createTable "ticketsTeams", deps: [tickets, teams]
  *
@@ -17,8 +17,8 @@ var Sequelize = require('sequelize');
 
 var info = {
     "revision": 1,
-    "name": "initial",
-    "created": "2018-04-23T12:03:24.383Z",
+    "name": "fixed-all-assosiations",
+    "created": "2018-04-29T15:24:08.310Z",
     "comment": ""
 };
 
@@ -122,8 +122,8 @@ var migrationCommands = [{
                     "type": Sequelize.DATE,
                     "allowNull": false
                 },
-                "assignee": {
-                    "type": Sequelize.STRING,
+                "assigneeId": {
+                    "type": Sequelize.INTEGER,
                     "allowNull": false
                 },
                 "attach": {
@@ -183,6 +183,16 @@ var migrationCommands = [{
                         "key": "id"
                     },
                     "allowNull": true
+                },
+                "usersId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "SET NULL",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "allowNull": true
                 }
             },
             {}
@@ -197,10 +207,6 @@ var migrationCommands = [{
                     "type": Sequelize.INTEGER,
                     "autoIncrement": true,
                     "primaryKey": true,
-                    "allowNull": false
-                },
-                "ticket": {
-                    "type": Sequelize.INTEGER,
                     "allowNull": false
                 },
                 "content": {
@@ -225,7 +231,27 @@ var migrationCommands = [{
                     },
                     "allowNull": true
                 },
+                "usersId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "SET NULL",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "allowNull": true
+                },
                 "ticketId": {
+                    "type": Sequelize.INTEGER,
+                    "onUpdate": "CASCADE",
+                    "onDelete": "SET NULL",
+                    "references": {
+                        "model": "tickets",
+                        "key": "id"
+                    },
+                    "allowNull": true
+                },
+                "ticketsId": {
                     "type": Sequelize.INTEGER,
                     "onUpdate": "CASCADE",
                     "onDelete": "SET NULL",

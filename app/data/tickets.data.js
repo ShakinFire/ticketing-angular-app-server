@@ -1,7 +1,8 @@
 const Data = require('./generic.data');
-
+const sequelize = require('sequelize');
 const {
     users,
+    comments,
 } = require('../../db/models');
 
 class TicketsData extends Data {
@@ -69,6 +70,38 @@ class TicketsData extends Data {
         return this.Model.findOne({
             where: {
                 assignee: value,
+            },
+        });
+    }
+
+    getTicketAndComments(id) {
+        return this.Model.findOne({
+            where: {
+                id: id,
+            },
+            include: [
+                {
+                    model: comments,
+                    as: 'comments',
+                    attributes: { exclude: ['userId', 'ticketId', 'updatedAt'] },
+                    include: [
+                        {
+                            model: users,
+                            as: 'users',
+                            attributes: { exclude: ['password', 'updatedAt', 'createdAt', 'email'] },
+                        },
+                    ],
+                },
+            ],
+        });
+    }
+
+    updateTotalComments(ticketId) {
+        return this.Model.update({
+            totalComments: sequelize.literal('totalComments + 1'),
+        }, {
+            where: {
+                id: ticketId,
             },
         });
     }

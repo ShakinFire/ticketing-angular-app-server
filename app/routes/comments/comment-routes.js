@@ -1,5 +1,6 @@
 const Ccontroller = require('./comment-controller');
 const { Router } = require('express');
+const passport = require('passport');
 
 const init = (app, data) => {
     const CommentController = new Ccontroller(data);
@@ -18,6 +19,14 @@ const init = (app, data) => {
 
             res.json({
                 result,
+            });
+        })
+        .post('/createComment', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const commentContent = req.body;
+            const comment = await CommentController.createComment(commentContent);
+
+            res.json({
+                comment,
             });
         });
 };

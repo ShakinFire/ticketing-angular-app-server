@@ -33,13 +33,14 @@ class TeamsData extends Data {
 
     getByUserAllTeams(id) {
         return this.Model.findAll({
-
             include: [{
                 model: users,
-                where: {
-                    id: id,
-                }
-            }]
+                through: {
+                    where: {
+                        userId: id,
+                    },
+                },
+            }],
         });
     }
 }

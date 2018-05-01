@@ -9,10 +9,6 @@
                     "autoIncrement": true,
                     "seqType": "Sequelize.INTEGER"
                 },
-                "ticket": {
-                    "allowNull": false,
-                    "seqType": "Sequelize.INTEGER"
-                },
                 "content": {
                     "allowNull": false,
                     "seqType": "Sequelize.TEXT"
@@ -161,16 +157,6 @@
                     "onDelete": "SET NULL",
                     "onUpdate": "CASCADE",
                     "seqType": "Sequelize.INTEGER"
-                },
-                "usersId": {
-                    "allowNull": true,
-                    "references": {
-                        "model": "users",
-                        "key": "id"
-                    },
-                    "onDelete": "SET NULL",
-                    "onUpdate": "CASCADE",
-                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
@@ -281,5 +267,5 @@
             "indexes": []
         }
     },
-    "revision": 3
+    "revision": 2
 }
