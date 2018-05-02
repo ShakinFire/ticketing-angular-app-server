@@ -9,6 +9,7 @@ const Op = sequelize.Op;
 const {
     users,
     comments,
+    teams,
 } = require('../../db/models');
 
 class TicketsData extends Data {
@@ -111,6 +112,9 @@ class TicketsData extends Data {
                         },
                     ],
                 },
+                {
+                    model: teams,
+                },
             ],
         });
     }
@@ -123,6 +127,39 @@ class TicketsData extends Data {
                 id: ticketId,
             },
         });
+    }
+
+    updateTicketStatus(status, id) {
+        return this.Model.update(
+            { status: status },
+            {
+                where: {
+                    id: id,
+                },
+            },
+        );
+    }
+
+    updateNewAssignee(newId, ticketId) {
+        return this.Model.update(
+            { assigneeId: newId },
+            {
+                where: {
+                    id: ticketId,
+                },
+            },
+        );
+    }
+
+    updateNewRequester(newId, ticketId) {
+        return this.Model.update(
+            { userId: newId },
+            {
+                where: {
+                    id: ticketId,
+                },
+            },
+        );
     }
 }
 

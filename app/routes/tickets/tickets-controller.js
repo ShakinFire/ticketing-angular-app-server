@@ -145,6 +145,18 @@ class TicketController {
             assignee,
         };
     }
+
+    async updateStatus(statusPayload) {
+        this.data.tickets.updateTicketStatus(statusPayload.status, statusPayload.ticketId);
+    }
+
+    async updateAssignee(assigneePayload) {
+        return this.data.tickets.updateNewAssignee(assigneePayload.newId, assigneePayload.ticketId);
+    }
+
+    async updateRequester(updatedRequester) {
+        return this.data.tickets.updateNewRequester(updatedRequester.newId, updatedRequester.ticketId);
+    }
 }
 
 module.exports = TicketController;

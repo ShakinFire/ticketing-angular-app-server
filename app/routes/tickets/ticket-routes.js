@@ -12,7 +12,7 @@ const init = (app, data) => {
 
     router
         .get('/getAllAssignedTickets', passport.authenticate('jwt', {
-            session: false
+            session: false,
         }), async (req, res) => {
             const allAssignedTickets = await TicketController.getAllAssignedTickets(req.user.id);
 
@@ -21,7 +21,7 @@ const init = (app, data) => {
             });
         })
         .get('/getAllMyTickets', passport.authenticate('jwt', {
-            session: false
+            session: false,
         }), async (req, res) => {
             const allMyTickets = await TicketController.getAllMyTickets(req.user.id);
             console.log(allMyTickets);
@@ -45,7 +45,20 @@ const init = (app, data) => {
             res.json({
                 result,
             });
-        });
+        })
+        .post('/updateStatus', passport.authenticate('jwt', { session: false }), (req, res) => {
+            const statusPayload = req.body;
+            TicketController.updateStatus(statusPayload);
+            res.json(statusPayload);
+        })
+        .post('/updateAssignee', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const updatedAssignee = await TicketController.updateAssignee(req.body);
+            res.json(updatedAssignee);
+        })
+        .post('/updateRequester', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const updatedRequester = await TicketController.updateRequester(req.body);
+            res.json(updatedRequester);
+        })
     // .get('/getAllTicketsDataLessTwo', async (req, res) => {
     //     const result = await TicketController.getAllTicketDateIsTwo();
     //     res.json({
