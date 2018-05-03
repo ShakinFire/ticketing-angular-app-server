@@ -17,8 +17,8 @@ var Sequelize = require('sequelize');
 
 var info = {
     "revision": 1,
-    "name": "initial",
-    "created": "2018-05-01T08:53:00.608Z",
+    "name": "fixed-notifications",
+    "created": "2018-05-01T19:59:12.913Z",
     "comment": ""
 };
 
