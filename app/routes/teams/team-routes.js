@@ -54,13 +54,9 @@ const init = (app, data) => {
                 result,
             });
         })
-<<<<<<< HEAD
         .get('/getMyTeams', passport.authenticate('jwt', {
             session: false
         }), async (req, res) => {
-=======
-        .get('/getMyTeams', passport.authenticate('jwt', { session: false }), async (req, res) => {
->>>>>>> ceee309933fe0d0893bbfc48b352d7b0168a1b7a
             const teams = await TeamController.getUserAllTeams(req.user.id);
             res.json({
                 teams,

@@ -11,6 +11,7 @@ const init = (app, data) => {
     app.use('/api', router);
 
     router
+
         .get('/getAllAssignedTickets', passport.authenticate('jwt', {
             session: false
         }), async (req, res) => {
@@ -29,13 +30,9 @@ const init = (app, data) => {
                 tickets: allMyTickets,
             });
         })
-<<<<<<< HEAD
         .get('/ticket-view/:id', passport.authenticate('jwt', {
             session: false
         }), async (req, res) => {
-=======
-        .get('/ticket-view/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
->>>>>>> ceee309933fe0d0893bbfc48b352d7b0168a1b7a
             const ticket = await TicketController.getSingleTicket(req.params.id);
             res.json({
                 ticket: ticket.ticket,
@@ -51,7 +48,15 @@ const init = (app, data) => {
             res.json({
                 result,
             });
+        })
+        .get('/ticketByName/:name', async (req, res) => {
+            console.log('req.params');
+            const ticket = await TicketController.getTicketByName(req.params.name);
+            res.json({
+                ticket,
+            });
         });
+
     // .get('/getAllTicketsDataLessTwo', async (req, res) => {
     //     const result = await TicketController.getAllTicketDateIsTwo();
     //     res.json({

@@ -2,9 +2,6 @@ const Data = require('./generic.data');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
-// const timezone = 'Europe/Vilnius'
-
-// require('moment').tz.setDefault(timezone)
 
 const {
     users,
@@ -92,10 +89,7 @@ class TicketsData extends Data {
             }
         })
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> ceee309933fe0d0893bbfc48b352d7b0168a1b7a
     getTicketAndComments(id) {
         return this.Model.findOne({
             where: {
