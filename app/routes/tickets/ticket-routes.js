@@ -50,7 +50,7 @@ const init = (app, data) => {
             });
         })
         .get('/ticketByName/:name', async (req, res) => {
-            console.log('req.params');
+            console.log(req.params.name);
             const ticket = await TicketController.getTicketByName(req.params.name);
             res.json({
                 ticket,
