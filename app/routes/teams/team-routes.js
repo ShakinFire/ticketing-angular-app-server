@@ -58,6 +58,7 @@ const init = (app, data) => {
             session: false
         }), async (req, res) => {
             const teams = await TeamController.getUserAllTeams(req.user.id);
+            console.log(teams);
             res.json({
                 teams,
             });

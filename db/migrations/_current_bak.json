@@ -99,16 +99,6 @@
                     "allowNull": false,
                     "seqType": "Sequelize.STRING"
                 },
-                "totalMembers": {
-                    "allowNull": false,
-                    "defaultValue": {
-                        "value": 0
-                    },
-                    "seqType": "Sequelize.INTEGER"
-                },
-                "description": {
-                    "seqType": "Sequelize.STRING"
-                },
                 "createdAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
@@ -116,16 +106,6 @@
                 "updatedAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
-                },
-                "userId": {
-                    "allowNull": true,
-                    "references": {
-                        "model": "users",
-                        "key": "id"
-                    },
-                    "onDelete": "SET NULL",
-                    "onUpdate": "CASCADE",
-                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
@@ -301,5 +281,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }
