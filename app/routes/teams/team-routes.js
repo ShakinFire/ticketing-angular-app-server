@@ -54,7 +54,9 @@ const init = (app, data) => {
                 result,
             });
         })
-        .get('/getMyTeams', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .get('/getMyTeams', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const teams = await TeamController.getUserAllTeams(req.user.id);
             res.json({
                 teams,

@@ -55,7 +55,7 @@ class TicketController {
         const year = dmy[0].substring(3, 5);
         const hms = currentDate[1].split(':'); // hour-minute-secound
         const result =
-        `${this._getMonth(dmy[1])} ${dmy[2]}'${year} at ${hms[0]}:${hms[1]}`;
+            `${this._getMonth(dmy[1])} ${dmy[2]}'${year} at ${hms[0]}:${hms[1]}`;
 
         return result;
     }
@@ -144,6 +144,11 @@ class TicketController {
             requester,
             assignee,
         };
+    }
+    async getTicketByName(name) {
+        console.log('ticket controller')
+        const ticket = await this.data.tickets.getByTitle(name);
+        return ticket;
     }
 
     async updateStatus(statusPayload) {

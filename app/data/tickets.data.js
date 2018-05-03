@@ -2,9 +2,6 @@ const Data = require('./generic.data');
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
-// const timezone = 'Europe/Vilnius'
-
-// require('moment').tz.setDefault(timezone)
 
 const {
     users,
@@ -99,18 +96,19 @@ class TicketsData extends Data {
             where: {
                 id: id,
             },
-            include: [
-                {
+            include: [{
                     model: comments,
                     as: 'comments',
-                    attributes: { exclude: ['userId', 'ticketId', 'updatedAt'] },
-                    include: [
-                        {
-                            model: users,
-                            as: 'users',
-                            attributes: { exclude: ['password', 'updatedAt', 'createdAt', 'email'] },
+                    attributes: {
+                        exclude: ['userId', 'ticketId', 'updatedAt']
+                    },
+                    include: [{
+                        model: users,
+                        as: 'users',
+                        attributes: {
+                            exclude: ['password', 'updatedAt', 'createdAt', 'email']
                         },
-                    ],
+                    }, ],
                 },
                 {
                     model: teams,
@@ -130,36 +128,33 @@ class TicketsData extends Data {
     }
 
     updateTicketStatus(status, id) {
-        return this.Model.update(
-            { status: status },
-            {
-                where: {
-                    id: id,
-                },
+        return this.Model.update({
+            status: status
+        }, {
+            where: {
+                id: id,
             },
-        );
+        }, );
     }
 
     updateNewAssignee(newId, ticketId) {
-        return this.Model.update(
-            { assigneeId: newId },
-            {
-                where: {
-                    id: ticketId,
-                },
+        return this.Model.update({
+            assigneeId: newId
+        }, {
+            where: {
+                id: ticketId,
             },
-        );
+        }, );
     }
 
     updateNewRequester(newId, ticketId) {
-        return this.Model.update(
-            { userId: newId },
-            {
-                where: {
-                    id: ticketId,
-                },
+        return this.Model.update({
+            userId: newId
+        }, {
+            where: {
+                id: ticketId,
             },
-        );
+        }, );
     }
 }
 

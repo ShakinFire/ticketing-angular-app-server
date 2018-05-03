@@ -11,6 +11,7 @@ const init = (app, data) => {
     app.use('/api', router);
 
     router
+
         .get('/getAllAssignedTickets', passport.authenticate('jwt', {
             session: false,
         }), async (req, res) => {
@@ -29,7 +30,9 @@ const init = (app, data) => {
                 tickets: allMyTickets,
             });
         })
-        .get('/ticket-view/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .get('/ticket-view/:id', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const ticket = await TicketController.getSingleTicket(req.params.id);
             res.json({
                 ticket: ticket.ticket,
@@ -46,19 +49,32 @@ const init = (app, data) => {
                 result,
             });
         })
-        .post('/updateStatus', passport.authenticate('jwt', { session: false }), (req, res) => {
+        .get('/ticketByName/:name', async (req, res) => {
+            console.log('req.params');
+            const ticket = await TicketController.getTicketByName(req.params.name);
+            res.json({
+                ticket,
+            });
+        })
+        .post('/updateStatus', passport.authenticate('jwt', {
+            session: false
+        }), (req, res) => {
             const statusPayload = req.body;
             TicketController.updateStatus(statusPayload);
             res.json(statusPayload);
         })
-        .post('/updateAssignee', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .post('/updateAssignee', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const updatedAssignee = await TicketController.updateAssignee(req.body);
             res.json(updatedAssignee);
         })
-        .post('/updateRequester', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .post('/updateRequester', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const updatedRequester = await TicketController.updateRequester(req.body);
             res.json(updatedRequester);
-        })
+        });
     // .get('/getAllTicketsDataLessTwo', async (req, res) => {
     //     const result = await TicketController.getAllTicketDateIsTwo();
     //     res.json({
