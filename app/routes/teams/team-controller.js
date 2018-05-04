@@ -6,7 +6,6 @@ class TeamController {
     async getUserAllTeams(id) {
         const user = await this.data.users.getById(id);
         return user.getTeams();
-        // return await this.data.teams.getByUserAllTeams(id);
     }
 
     async getTeamAllUsers(name) {
@@ -24,6 +23,15 @@ class TeamController {
         const userId = obj.userId;
         const team = await this.data.teams.findByTeamName(obj.team);
         await team.addUsers([userId]);
+        return team;
+    }
+
+    async getTeamAndTickets(teamId) {
+        const team = await this.data.teams.getById(+teamId);
+        const tickets = team.getTickets();
+        team.dataValues.tickets = await tickets;
+        console.log(tickets);
+        console.log(team);
         return team;
     }
 }

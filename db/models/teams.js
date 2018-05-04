@@ -6,14 +6,14 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
     },
-    totalMembers: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-    },
-    description: {
-      type: DataTypes.STRING,
-    },
+    // totalMembers: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   defaultValue: 0,
+    // },
+    // description: {
+    //   type: DataTypes.STRING,
+    // },
     // teamLead: {
     //   type: DataTypes.INTEGER,
     //   allowNull: false,

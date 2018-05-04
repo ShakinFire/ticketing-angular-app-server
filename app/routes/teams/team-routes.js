@@ -55,13 +55,19 @@ const init = (app, data) => {
             });
         })
         .get('/getMyTeams', passport.authenticate('jwt', {
-            session: false
+            session: false,
         }), async (req, res) => {
             const teams = await TeamController.getUserAllTeams(req.user.id);
             console.log(teams);
             res.json({
                 teams,
             });
+        })
+        .get('/getTeamAndTickets/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const team = await TeamController.getTeamAndTickets(req.params.id);
+            res.json(
+                team,
+            );
         });
 };
 
