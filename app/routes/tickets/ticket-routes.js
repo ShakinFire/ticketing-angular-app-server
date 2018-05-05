@@ -74,13 +74,13 @@ const init = (app, data) => {
         }), async (req, res) => {
             const updatedRequester = await TicketController.updateRequester(req.body);
             res.json(updatedRequester);
+        })
+        .get('/getAllTicketsDataLessTwo', async (req, res) => {
+            const result = await TicketController.getAllTicketDateIsTwo();
+            res.json({
+                result,
+            });
         });
-    // .get('/getAllTicketsDataLessTwo', async (req, res) => {
-    //     const result = await TicketController.getAllTicketDateIsTwo();
-    //     res.json({
-    //         result,
-    //     });
-    // })
 };
 
 module.exports = {

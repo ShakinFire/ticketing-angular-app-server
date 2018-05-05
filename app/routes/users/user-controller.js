@@ -44,7 +44,9 @@ class UserController {
         return await this.data.users.getAll();
     }
     async getUserId(name) {
+        console.log(name);
         const user = await this.data.users.findByUserName(name);
+        console.log(user.id);
         return user.id;
 
     }
