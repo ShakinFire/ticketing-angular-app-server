@@ -13,30 +13,56 @@ const init = (app, data) => {
     app.use('/api', router);
 
     router
-        .post('/create-notification', async (req, res) => {
-            const notification = req.body;
-            const userId = await uController.getUserId(notification.user);
-            const obj = {
-                content: notification.content,
-                userId: userId,
-                type: notification.type,
-                nameType: notification.nameType,
-            }
-            console.log(notification);
-            const result = await controller.createNotification(obj);
+
+        .get('/notificationUser/:id', async (req, res) => {
+            const id = req.params.id;
+            const result = await controller.getNotification(id);
             res.json({
                 result,
             });
         })
-        .get('/notificationUser/:id', async (req, res) => {
-            const id = req.params.id;
-            const result = await controller.getNotification(id);
-            console.log(result);
+        .put('/updateNotification', async (req, res) => {
+            const id = req.body;
+            console.log(id.id);
+            // console.log('i am rout' + (+id));
+            const result = await controller.updateTypeNotification(id.id);
             res.json({
                 result,
             });
-        });
-};
+        })
+        .post('/create-notification', async (req, res) => {
+            const notification = req.body;
+            const user = notification.userId;
+            if (isNaN(user)) {
+                console.log('name');
+                const userId = await uController.getUserId(user);
+                const obj = {
+                    content: notification.content,
+                    userId: userId,
+                    type: notification.type,
+                    nameType: notification.nameType,
+                }
+                const result = await controller.createNotification(obj);
+                res.json({
+                    result,
+                });
+            } else {
+                console.log('id');
+                const obj = {
+                    content: notification.content,
+                    userId: user,
+                    type: notification.type,
+                    nameType: notification.nameType,
+                }
+                console.log(notification);
+                const result = await controller.createNotification(obj);
+                res.json({
+                    result,
+                });
+            }
+        })
+}
+
 
 module.exports = {
     init,

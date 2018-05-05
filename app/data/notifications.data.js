@@ -6,10 +6,21 @@ class NotificationsData extends Data {
     }
     getNotificationByUser(id) {
         return this.Model.findAll({
-            attributes: { exclude: ['updatedAt'] },
+            attributes: {
+                exclude: ['updatedAt']
+            },
             where: {
                 userId: id,
             },
+        });
+    }
+    updateType(id) {
+        return this.Model.update({
+            type: 'viewTeam',
+        }, {
+            where: {
+                id: id,
+            }
         });
     }
 }
