@@ -17,8 +17,8 @@ var Sequelize = require('sequelize');
 
 var info = {
     "revision": 1,
-    "name": "fixed-notifications",
-    "created": "2018-05-01T19:59:12.913Z",
+    "name": "added-cols-in-teams-table",
+    "created": "2018-05-04T21:13:49.148Z",
     "comment": ""
 };
 
@@ -37,6 +37,18 @@ var migrationCommands = [{
                     "type": Sequelize.STRING,
                     "allowNull": false,
                     "unique": true
+                },
+                "totalMembers": {
+                    "type": Sequelize.INTEGER,
+                    "defaultValue": 0,
+                    "allowNull": false
+                },
+                "description": {
+                    "type": Sequelize.STRING
+                },
+                "teamLead": {
+                    "type": Sequelize.INTEGER,
+                    "allowNull": false
                 },
                 "createdAt": {
                     "type": Sequelize.DATE,

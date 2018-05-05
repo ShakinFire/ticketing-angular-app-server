@@ -99,6 +99,20 @@
                     "allowNull": false,
                     "seqType": "Sequelize.STRING"
                 },
+                "totalMembers": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": 0
+                    },
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "description": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "teamLead": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"

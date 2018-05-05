@@ -1,7 +1,7 @@
 const {
     Router
 } = require('express');
-const Ncontroller = require('./notification-controler')
+const Ncontroller = require('./notification-controler');
 const passport = require('passport');
 const UserControler = require('../users/user-controller');
 
@@ -13,7 +13,17 @@ const init = (app, data) => {
     app.use('/api', router);
 
     router
-
+        .post('/create-notification', async (req, res) => {
+            const notification = req.body;
+            const userId = await uController.getUserId(notification.user);
+            const obj = {
+                content: notification.content,
+                userId: userId,
+                type: notification.type,
+                nameType: notification.nameType,
+            };
+            const result = await controller.createNotification(obj);
+        })
         .get('/notificationUser/:id', async (req, res) => {
             const id = req.params.id;
             const result = await controller.getNotification(id);
@@ -60,8 +70,8 @@ const init = (app, data) => {
                     result,
                 });
             }
-        })
-}
+        });
+};
 
 
 module.exports = {

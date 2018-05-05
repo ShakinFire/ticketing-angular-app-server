@@ -146,7 +146,6 @@ class TicketController {
         };
     }
     async getTicketByName(name) {
-        console.log('ticket controller')
         const ticket = await this.data.tickets.getByTitle(name);
         return ticket;
     }

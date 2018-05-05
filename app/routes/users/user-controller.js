@@ -48,7 +48,6 @@ class UserController {
         const user = await this.data.users.findByUserName(name);
         console.log(user.id);
         return user.id;
-
     }
 }
 

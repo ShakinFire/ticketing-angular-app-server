@@ -1,5 +1,5 @@
 const Data = require('./generic.data');
-
+const sequelize = require('sequelize');
 const {
     users,
 } = require('../../db/models');
@@ -41,6 +41,29 @@ class TeamsData extends Data {
                     },
                 },
             }],
+        });
+    }
+
+    testing(id) {
+        return this.Model.findOne({
+            where: {
+                id: id,
+            },
+            include: [
+                {
+                    model: users,
+                }
+            ],
+        });
+    }
+
+    incrementMembers(id) {
+        this.Model.update({
+            totalMembers: sequelize.literal('totalMembers + 1'),
+        }, {
+            where: {
+                id: id,
+            },
         });
     }
 }
