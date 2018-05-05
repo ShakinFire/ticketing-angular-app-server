@@ -39,8 +39,7 @@ const init = (app, data) => {
         })
         .post('/create-team', async (req, res) => {
             const team = req.body;
-
-            const result = await TeamController.createTeam(team)
+            const result = await TeamController.createTeam(team);
 
             res.json({
                 result,

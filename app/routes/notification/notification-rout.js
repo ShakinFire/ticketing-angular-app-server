@@ -21,8 +21,7 @@ const init = (app, data) => {
                 userId: userId,
                 type: notification.type,
                 nameType: notification.nameType,
-            }
-            console.log(notification);
+            };
             const result = await controller.createNotification(obj);
             res.json({
                 result,

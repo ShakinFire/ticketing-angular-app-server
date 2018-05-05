@@ -109,6 +109,10 @@
                 "description": {
                     "seqType": "Sequelize.STRING"
                 },
+                "teamLead": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.INTEGER"
+                },
                 "createdAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
@@ -116,16 +120,6 @@
                 "updatedAt": {
                     "allowNull": false,
                     "seqType": "Sequelize.DATE"
-                },
-                "userId": {
-                    "allowNull": true,
-                    "references": {
-                        "model": "users",
-                        "key": "id"
-                    },
-                    "onDelete": "SET NULL",
-                    "onUpdate": "CASCADE",
-                    "seqType": "Sequelize.INTEGER"
                 }
             },
             "indexes": []
@@ -301,5 +295,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }

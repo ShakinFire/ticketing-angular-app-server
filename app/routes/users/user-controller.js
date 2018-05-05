@@ -46,7 +46,6 @@ class UserController {
     async getUserId(name) {
         const user = await this.data.users.findByUserName(name);
         return user.id;
-
     }
 }
 
