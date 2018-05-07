@@ -41,6 +41,9 @@ class TeamController {
         team.dataValues.teamLeadUser = await this.data.users.findOneByIdUser(team.teamLead);
         return team;
     }
+    getTeamId(name) {
+        return this.data.teams.findByTeamName(name);
+    }
 }
 
 module.exports = TeamController;

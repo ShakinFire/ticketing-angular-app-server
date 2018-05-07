@@ -62,8 +62,16 @@ const init = (app, data) => {
                 teams,
             });
         })
-        .get('/getTeamAndTickets/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .get('/getTeamAndTickets/:id', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const team = await TeamController.getTeamAndTickets(req.params.id);
+            res.json(
+                team,
+            );
+        })
+        .get('/getTeamId/:name', async (req, res) => {
+            const team = await TeamController.getTeamId(req.params.name);
             res.json(
                 team,
             );
