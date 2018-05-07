@@ -31,11 +31,12 @@ class TeamController {
     async getTeamAndTickets(teamId) {
         const team = await this.data.teams.getById(+teamId);
         const tickets = await team.getTickets();
-        console.log(tickets);
-        Promise.all([tickets.forEach(async (ticket) => {
-            ticket.dataValues.assignee = await this.data.users.findOneByIdUser(ticket.assigneeId);
-            ticket.dataValues.requester = await this.data.users.findOneByIdUser(ticket.userId);
-        })]);
+
+        for (let i = 0; i < tickets.length; i += 1) {
+            tickets[i].dataValues.assignee = await this.data.users.findOneByIdUser(tickets[i].assigneeId);
+            tickets[i].dataValues.requester = await this.data.users.findOneByIdUser(tickets[i].userId);
+        }
+
         team.dataValues.tickets = await tickets;
         team.dataValues.tickets.assigneeId = await this.data.users.findOneByIdUser(tickets.assigneeId);
         team.dataValues.teamLeadUser = await this.data.users.findOneByIdUser(team.teamLead);
@@ -43,6 +44,82 @@ class TeamController {
     }
     getTeamId(name) {
         return this.data.teams.findByTeamName(name);
+    }
+
+    async getAllUsersOnTeam(teamId) {
+        const teamUsers = await this.data.teams.getAllUsersByTeamId(+teamId);
+        for (let i = 0; i < teamUsers.users.length; i += 1) {
+            teamUsers.users[i].dataValues.name = teamUsers.users[i].firstName + ' ' + teamUsers.users[i].lastName;
+        }
+        return teamUsers;
+    }
+
+    async getUsersOutsideTheTeam(teamId) {
+        const teamMembers = await this.getAllUsersOnTeam(teamId);
+        const teamMembersIds = await Promise.all(teamMembers.users.map((user) => {
+            return user.id;
+        }));
+
+        const usersToAdd = await this.data.users.getAllAddMembers(teamMembersIds);
+
+        for (let i = 0; i < usersToAdd.length; i += 1) {
+            usersToAdd[i].dataValues.name = usersToAdd[i].firstName + ' ' + usersToAdd[i].lastName;
+        }
+
+        return usersToAdd;
+    }
+
+    async addNewMember(newMember) {
+        const isValidUser = await this.data.users.findOneByIdUser(newMember.id);
+        const team = await this.data.teams.getById(newMember.teamId);
+
+        if (isValidUser) {
+            this.data.teams.incrementMembers(newMember.teamId);
+            team.addUsers([newMember.id]);
+        }
+
+        return isValidUser;
+    }
+
+    changeName(newNameObj) {
+        this.data.teams.changeTeamName(newNameObj.name, newNameObj.teamId);
+    }
+
+    changeDescription(newDescriptionObj) {
+        this.data.teams.changeTeamDescription(newDescriptionObj.description, newDescriptionObj.teamId);
+    }
+
+    changeTeamLeadUser(newUserObject) {
+        this.data.teams.changeTeamLead(newUserObject.userId, newUserObject.teamId);
+    }
+
+    async leaveTeam(userToLeave) {
+        const user = await this.data.users.getById(userToLeave.userId);
+
+        if (user && user.password === userToLeave.confirmPassword) {
+            const team = await this.data.teams.getById(userToLeave.teamId);
+            this.data.teams.decrementTotalMembers(userToLeave.teamId);
+            team.removeUsers([userToLeave.userId]);
+            return true;
+        }
+
+        return false;
+    }
+
+    async removeUser(userToRemove) {
+        const team = await this.data.teams.getById(userToRemove.teamId);
+        team.removeUsers([userToRemove.userId]);
+        this.data.teams.decrementTotalMembers(userToRemove.teamId);
+    }
+
+    async checkIfPartOfTeam(userToCheck) {
+        const team = await this.data.teams.checkIfFromTeam(userToCheck.userId, userToCheck.teamId);
+
+        if (team) {
+            return true;
+        }
+
+        return false;
     }
 }
 
