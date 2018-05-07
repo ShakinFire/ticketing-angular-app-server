@@ -1,8 +1,9 @@
 const Data = require('./generic.data');
-
 const {
     teams,
 } = require('../../db/models');
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
 
 class UsersData extends Data {
     constructor(userModel) {
@@ -44,6 +45,17 @@ class UsersData extends Data {
             attributes: { exclude: ['password', 'updatedAt', 'createdAt'] },
             where: {
                 id: id,
+            },
+        });
+    }
+
+    getAllAddMembers(userIds) {
+        return this.Model.findAll({
+            attributes: { exclude: ['password', 'updatedAt', 'createdAt', 'email'] },
+            where: {
+                id: {
+                    [Op.notIn]: userIds,
+                },
             },
         });
     }
