@@ -45,9 +45,9 @@ class TeamController {
     }
 
     async getAllUsersOnTeam(teamId, loggedUserId) {
-        const teamUsers = await this.data.teams.getAllUsersByTeamId(+teamId, loggedUserId);
+        const teamUsers = await this.data.teams.getAllUsersToAdd(+teamId, loggedUserId);
         if (!teamUsers) {
-            return await this.data.teams.getAllUsersToAdd(+teamId, loggedUserId);
+            return await this.data.teams.getAllUsersByTeamId(+teamId, loggedUserId);
         }
 
         for (let i = 0; i < teamUsers.users.length; i += 1) {
