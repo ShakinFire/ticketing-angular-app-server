@@ -59,6 +59,22 @@ class UsersData extends Data {
             },
         });
     }
+
+    checkIfUserInTeam(userId, teamId) {
+        return this.Model.findOne({
+            where: {
+                id: userId,
+            },
+            include: [
+                {
+                    model: teams,
+                    where: {
+                        id: teamId,
+                    },
+                },
+            ],
+        });
+    }
 }
 
 module.exports = UsersData;

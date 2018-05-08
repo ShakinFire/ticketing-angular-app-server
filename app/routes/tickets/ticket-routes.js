@@ -25,7 +25,6 @@ const init = (app, data) => {
             session: false,
         }), async (req, res) => {
             const allMyTickets = await TicketController.getAllMyTickets(req.user.id);
-            console.log(allMyTickets);
             res.json({
                 tickets: allMyTickets,
             });
@@ -80,6 +79,10 @@ const init = (app, data) => {
             res.json({
                 result,
             });
+        })
+        .post('/checkIfUserFromTeam', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const isValid = await TicketController.checkIfUserFromTeam(req.body);
+            res.json(isValid);
         });
 };
 

@@ -161,6 +161,17 @@ class TicketController {
     async updateRequester(updatedRequester) {
         return this.data.tickets.updateNewRequester(updatedRequester.newId, updatedRequester.ticketId);
     }
+
+    async checkIfUserFromTeam(userToCheck) {
+        const ticketAndTeam = await this.data.tickets.getTicketAndComments(userToCheck.ticketId);
+        const teamId = ticketAndTeam.dataValues.teams[0].id;
+        const isValid = await this.data.users.checkIfUserInTeam(userToCheck.userId, teamId);
+        if (isValid) {
+            return true;
+        }
+
+        return false;
+    }
 }
 
 module.exports = TicketController;

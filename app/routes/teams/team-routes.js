@@ -68,11 +68,11 @@ const init = (app, data) => {
             );
         })
         .get('/getAllUsersOnTeam/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
-            const users = await TeamController.getAllUsersOnTeam(req.params.id);
+            const users = await TeamController.getAllUsersOnTeam(req.params.id, req.user.id);
             res.json(users.users);
         })
         .get('/getAllUsersOutsideTheTeam/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
-            const users = await TeamController.getUsersOutsideTheTeam(req.params.id);
+            const users = await TeamController.getUsersOutsideTheTeam(req.params.id, req.user.id);
             res.json(users);
         })
         .post('/newMember', passport.authenticate('jwt', { session: false }), async (req, res) => {

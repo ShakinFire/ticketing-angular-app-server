@@ -29,17 +29,25 @@ class TicketsData extends Data {
             },
             where: {
                 userId: userId,
+                status: {
+                    [Op.ne]: 'CLOSED',
+                },
             },
-            include: [{
-                model: users,
-                as: 'users',
-                attributes: {
-                    exclude: ['password', 'updatedAt', 'createdAt', 'email']
+            include: [
+                {
+                    model: users,
+                    as: 'users',
+                    attributes: {
+                        exclude: ['password', 'updatedAt', 'createdAt', 'email']
+                    },
+                    where: {
+                        id: userId,
+                    },
                 },
-                where: {
-                    id: userId,
+                {
+                    model: teams,
                 },
-            }, ],
+            ],
         });
     }
 
@@ -50,14 +58,23 @@ class TicketsData extends Data {
             },
             where: {
                 assigneeId: id,
-            },
-            include: [{
-                attributes: {
-                    exclude: ['password', 'updatedAt', 'createdAt', 'email']
+                status: {
+                    [Op.ne]: 'CLOSED',
                 },
-                as: 'users',
-                model: users,
-            }, ],
+            },
+            include: [
+                {
+                    attributes: {
+                        exclude: ['password', 'updatedAt', 'createdAt', 'email']
+                    },
+                    as: 'users',
+                    model: users,
+                },
+                {
+                    model: teams,
+                },
+            ],
+            
         });
     }
     getByTitle(value) {
@@ -112,6 +129,22 @@ class TicketsData extends Data {
                 },
                 {
                     model: teams,
+                },
+            ],
+        });
+    }
+
+    getTicketsByTeam(teamId) {
+        return this.Model.findAll({
+            include: [
+                {
+                    model: teams,
+                    where: {
+                        id: teamId,
+                        status: {
+                            [Op.ne]: 'CLOSED',
+                        },
+                    },
                 },
             ],
         });
