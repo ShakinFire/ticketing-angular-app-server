@@ -23,8 +23,6 @@ const init = (app, data) => {
             });
         })
         .get('/teams-users/:team', async (req, res) => {
-
-
             const name = req.params.team;
 
             const result = await TeamController.getTeamAllUsers(name);
@@ -61,58 +59,100 @@ const init = (app, data) => {
                 teams,
             });
         })
-        .get('/getTeamAndTickets/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .get('/getTeamAndTickets/:id', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const team = await TeamController.getTeamAndTickets(req.params.id);
             res.json(
                 team,
             );
         })
+<<<<<<< HEAD
+        .get('/getTeamId/:name', async (req, res) => {
+            const team = await TeamController.getTeamId(req.params.name);
+            res.json(
+                team,
+            );
+        })
+        .get('/getAllUsersOnTeam/:id', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
+            const users = await TeamController.getAllUsersOnTeam(req.params.id);
+            res.json(users.users);
+        })
+        .get('/getAllUsersOutsideTheTeam/:id', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
+            const users = await TeamController.getUsersOutsideTheTeam(req.params.id);
+=======
         .get('/getAllUsersOnTeam/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
             const users = await TeamController.getAllUsersOnTeam(req.params.id, req.user.id);
             res.json(users.users);
         })
         .get('/getAllUsersOutsideTheTeam/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
             const users = await TeamController.getUsersOutsideTheTeam(req.params.id, req.user.id);
+>>>>>>> 8aeb4beca676d0090ee7302d3c1fabb299606bbd
             res.json(users);
         })
-        .post('/newMember', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .post('/newMember', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const addMember = await TeamController.addNewMember(req.body);
             res.json(addMember);
         })
-        .post('/updateTeamName', passport.authenticate('jwt', { session: false }), (req, res) => {
+        .post('/updateTeamName', passport.authenticate('jwt', {
+            session: false
+        }), (req, res) => {
             TeamController.changeName(req.body);
             res.json({
                 name: req.body.name,
             });
         })
-        .post('/updateTeamDescription', passport.authenticate('jwt', { session: false }), (req, res) => {
+        .post('/updateTeamDescription', passport.authenticate('jwt', {
+            session: false
+        }), (req, res) => {
             TeamController.changeDescription(req.body);
             res.json({
                 name: req.body.description,
             });
         })
-        .post('/updateTeamLead', passport.authenticate('jwt', { session: false }), (req, res) => {
+        .post('/updateTeamLead', passport.authenticate('jwt', {
+            session: false
+        }), (req, res) => {
             TeamController.changeTeamLeadUser(req.body);
             res.json({
                 newTeamUser: req.body,
             });
         })
-        .post('/userLeaveTeam', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .post('/userLeaveTeam', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const isValid = await TeamController.leaveTeam(req.body);
             res.json({
                 isValid,
             });
         })
-        .post('/removeUserFromTeam', passport.authenticate('jwt', { session: false }), (req, res) => {
+        .post('/removeUserFromTeam', passport.authenticate('jwt', {
+            session: false
+        }), (req, res) => {
             TeamController.removeUser(req.body);
             res.json(req.body);
         })
-        .post('/checkIfPartOfTeam', passport.authenticate('jwt', { session: false }), async (req, res) => {
+        .post('/checkIfPartOfTeam', passport.authenticate('jwt', {
+            session: false
+        }), async (req, res) => {
             const isValid = await TeamController.checkIfPartOfTeam(req.body);
             res.json({
                 isValid,
             });
-        });
+        })
+        .get('/getTeamName/:id', async (req, res) => {
+            const team = await TeamController.getTeamName(req.params.id);
+            const teamName = team.name;
+            res.json({
+                teamName,
+            })
+        })
 };
 
 module.exports = {

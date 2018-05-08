@@ -27,10 +27,17 @@ const init = (app, data) => {
             });
         })
         .post('/create-notification', async (req, res) => {
+            console.log(req.body);
             const notification = req.body;
+
             const user = notification.userId;
             if (isNaN(user)) {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8aeb4beca676d0090ee7302d3c1fabb299606bbd
                 const userId = await uController.getUserId(user);
+                console.log(userId);
                 const obj = {
                     content: notification.content,
                     userId: userId,

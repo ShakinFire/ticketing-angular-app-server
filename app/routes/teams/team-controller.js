@@ -43,6 +43,12 @@ class TeamController {
         team.dataValues.teamLeadUser = await this.data.users.findOneByIdUser(team.teamLead);
         return team;
     }
+    getTeamId(name) {
+        return this.data.teams.findByTeamName(name);
+    }
+    getTeamName(id) {
+        return this.data.teams.getById(id);
+    }
 
     async getAllUsersOnTeam(teamId, loggedUserId) {
         const teamUsers = await this.data.teams.getAllUsersByTeamId(+teamId, loggedUserId);
