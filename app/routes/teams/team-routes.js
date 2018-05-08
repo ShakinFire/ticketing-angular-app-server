@@ -23,8 +23,6 @@ const init = (app, data) => {
             });
         })
         .get('/teams-users/:team', async (req, res) => {
-
-
             const name = req.params.team;
 
             const result = await TeamController.getTeamAllUsers(name);
@@ -138,7 +136,14 @@ const init = (app, data) => {
             res.json({
                 isValid,
             });
-        });
+        })
+        .get('/getTeamName/:id', async (req, res) => {
+            const team = await TeamController.getTeamName(req.params.id);
+            const teamName = team.name;
+            res.json({
+                teamName,
+            })
+        })
 };
 
 module.exports = {

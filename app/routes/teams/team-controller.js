@@ -45,6 +45,9 @@ class TeamController {
     getTeamId(name) {
         return this.data.teams.findByTeamName(name);
     }
+    getTeamName(id) {
+        return this.data.teams.getById(id);
+    }
 
     async getAllUsersOnTeam(teamId) {
         const teamUsers = await this.data.teams.getAllUsersByTeamId(+teamId);
