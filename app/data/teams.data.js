@@ -1,5 +1,6 @@
 const Data = require('./generic.data');
 const sequelize = require('sequelize');
+const Op = sequelize.Op;
 const {
     users,
 } = require('../../db/models');
@@ -54,7 +55,7 @@ class TeamsData extends Data {
         });
     }
 
-    getAllUsersByTeamId(teamId) {
+    getAllUsersByTeamId(teamId, loggedUserId) {
         return this.Model.findOne({
             where: {
                 id: teamId,
@@ -63,7 +64,28 @@ class TeamsData extends Data {
                 {
                     model: users,
                     attributes: {
-                        exclude: ['password', 'updatedAt', 'createdAt', 'email']
+                        exclude: ['password', 'updatedAt', 'createdAt', 'email'],
+                    },
+                    where: {
+                        id: {
+                            [Op.ne]: loggedUserId,
+                        },
+                    },
+                },
+            ],
+        });
+    }
+
+    getAllUsersToAdd(teamId, loggedUserId) {
+        return this.Model.findOne({
+            where: {
+                id: teamId,
+            },
+            include: [
+                {
+                    model: users,
+                    attributes: {
+                        exclude: ['password', 'updatedAt', 'createdAt', 'email'],
                     },
                 },
             ],

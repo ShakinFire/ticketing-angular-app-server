@@ -31,7 +31,8 @@ class TeamController {
     async getTeamAndTickets(teamId) {
         const team = await this.data.teams.getById(+teamId);
         const tickets = await team.getTickets();
-
+        // const test = await this.data.tickets.getTicketsByTeam(teamId);
+        // console.log(tickets);
         for (let i = 0; i < tickets.length; i += 1) {
             tickets[i].dataValues.assignee = await this.data.users.findOneByIdUser(tickets[i].assigneeId);
             tickets[i].dataValues.requester = await this.data.users.findOneByIdUser(tickets[i].userId);
@@ -49,19 +50,24 @@ class TeamController {
         return this.data.teams.getById(id);
     }
 
-    async getAllUsersOnTeam(teamId) {
-        const teamUsers = await this.data.teams.getAllUsersByTeamId(+teamId);
+    async getAllUsersOnTeam(teamId, loggedUserId) {
+        const teamUsers = await this.data.teams.getAllUsersByTeamId(+teamId, loggedUserId);
+        if (!teamUsers) {
+            return await this.data.teams.getAllUsersToAdd(+teamId, loggedUserId);
+        }
+
         for (let i = 0; i < teamUsers.users.length; i += 1) {
             teamUsers.users[i].dataValues.name = teamUsers.users[i].firstName + ' ' + teamUsers.users[i].lastName;
         }
+    
         return teamUsers;
     }
 
-    async getUsersOutsideTheTeam(teamId) {
-        const teamMembers = await this.getAllUsersOnTeam(teamId);
-        const teamMembersIds = await Promise.all(teamMembers.users.map((user) => {
+    async getUsersOutsideTheTeam(teamId, loggedUserId) {
+        const teamMembers = await this.getAllUsersOnTeam(teamId, loggedUserId);
+        const teamMembersIds = await Promise.all([teamMembers.users.map((user) => {
             return user.id;
-        }));
+        })]);
 
         const usersToAdd = await this.data.users.getAllAddMembers(teamMembersIds);
 

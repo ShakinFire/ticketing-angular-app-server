@@ -21,10 +21,7 @@ const init = (app, data) => {
             });
         })
         .put('/updateNotification', async (req, res) => {
-            const id = req.body;
-            console.log(id.id);
-            // console.log('i am rout' + (+id));
-            const result = await controller.updateTypeNotification(id.id);
+            const result = await controller.updateTypeNotification(req.body.id);
             res.json({
                 result,
             });
@@ -35,7 +32,10 @@ const init = (app, data) => {
 
             const user = notification.userId;
             if (isNaN(user)) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8aeb4beca676d0090ee7302d3c1fabb299606bbd
                 const userId = await uController.getUserId(user);
                 console.log(userId);
                 const obj = {
@@ -43,20 +43,18 @@ const init = (app, data) => {
                     userId: userId,
                     type: notification.type,
                     nameType: notification.nameType,
-                }
+                };
                 const result = await controller.createNotification(obj);
                 res.json({
                     result,
                 });
             } else {
-                console.log('id');
                 const obj = {
                     content: notification.content,
                     userId: user,
                     type: notification.type,
                     nameType: notification.nameType,
-                }
-                console.log(notification);
+                };
                 const result = await controller.createNotification(obj);
                 res.json({
                     result,

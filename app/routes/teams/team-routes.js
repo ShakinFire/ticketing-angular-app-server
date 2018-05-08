@@ -67,6 +67,7 @@ const init = (app, data) => {
                 team,
             );
         })
+<<<<<<< HEAD
         .get('/getTeamId/:name', async (req, res) => {
             const team = await TeamController.getTeamId(req.params.name);
             res.json(
@@ -83,6 +84,14 @@ const init = (app, data) => {
             session: false
         }), async (req, res) => {
             const users = await TeamController.getUsersOutsideTheTeam(req.params.id);
+=======
+        .get('/getAllUsersOnTeam/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const users = await TeamController.getAllUsersOnTeam(req.params.id, req.user.id);
+            res.json(users.users);
+        })
+        .get('/getAllUsersOutsideTheTeam/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+            const users = await TeamController.getUsersOutsideTheTeam(req.params.id, req.user.id);
+>>>>>>> 8aeb4beca676d0090ee7302d3c1fabb299606bbd
             res.json(users);
         })
         .post('/newMember', passport.authenticate('jwt', {
