@@ -5,6 +5,7 @@ class NotificationController {
 
 
     async createNotification(notification) {
+        console.log(notification);
         return await this.data.notifications.create(notification);
     }
 
@@ -12,8 +13,7 @@ class NotificationController {
         return await this.data.notifications.getNotificationByUser(+id);
     }
     async updateTypeNotification(id) {
-        console.log('i am contriler' + id);
-        return await this.data.notifications.updateType(+id);
+        return await this.data.notifications.updateType(id);
     }
 }
 module.exports = NotificationController;
